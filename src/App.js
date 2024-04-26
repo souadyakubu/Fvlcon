@@ -12,12 +12,13 @@ function App() {
     <div className="h-[100vh]">
       <Routes>
         <Route path="/" element={<Logo />} />
+        <Route path='/dashboard' element={<Dashboard />} />
         <Route path="/company-code" element={<CompanyCodePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/email-verification" element={<VerificationPage />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/reset-password' element={<ResetPassword />} />
-        <Route path='/dashboard' element={<Dashboard />} />
+        
       </Routes>
     </div>
   );
