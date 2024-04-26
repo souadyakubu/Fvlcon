@@ -12,6 +12,24 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import UserPool from '../components/UserPool';
 
+// Dark theme configuration
+const theme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: '#ffffff',
+    },
+    secondary: {
+      main: '#ffffff',
+    },
+  },
+  typography: {
+    fontFamily: [
+      'Merriweather',
+      'serif',
+    ].join(','),
+  },
+});
 
 function Copyright(props) {
   return (
@@ -25,10 +43,6 @@ function Copyright(props) {
     </Typography>
   );
 }
-
-// TODO remove, this demo shouldn't need to reset the theme.
-
-const defaultTheme = createTheme();
 
 export default function SignUp() {
     const handleSubmit = (event) => {
@@ -52,7 +66,7 @@ export default function SignUp() {
       };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -61,6 +75,7 @@ export default function SignUp() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            color: 'white', 
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -71,41 +86,56 @@ export default function SignUp() {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              
-      
-<Grid item xs={12}>
-  <TextField
-    required
-    fullWidth
-    id="email"
-    label="Email Address"
-    name="email"
-    autoComplete="email"
-  />
-</Grid>
-<Grid item xs={12}>
-  <TextField
-    required
-    fullWidth
-    name="password"
-    label="Password"
-    type="password"
-    id="password"
-    autoComplete="new-password"
-  />
-</Grid>
-
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  sx={{
+                    '& label.Mui-focused': { color: 'white' },
+                    '& .MuiInput-underline:after': { borderBottomColor: 'white' },
+                    '& .MuiOutlinedInput-root': {
+                      '& fieldset': { borderColor: 'white' },
+                      '&:hover fieldset': { borderColor: 'white' },
+                      '&.Mui-focused fieldset': { borderColor: 'white' },
+                    }
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                  sx={{
+                    '& label.Mui-focused': { color: 'white' },
+                    '& .MuiInput-underline:after': { borderBottomColor: 'white' },
+                    '& .MuiOutlinedInput-root': {
+                      '& fieldset': { borderColor: 'white' },
+                      '&:hover fieldset': { borderColor: 'white' },
+                      '&.Mui-focused fieldset': { borderColor: 'white' },
+                    }
+                  }}
+                />
+              </Grid>
             </Grid>
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2, bgcolor: 'secondary.main' }}
             >
               Sign Up
             </Button>
             <Grid container justifyContent="flex-end">
-             
+            
             </Grid>
           </Box>
         </Box>

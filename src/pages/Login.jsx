@@ -14,7 +14,24 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-const defaultTheme = createTheme();
+// Updated theme
+const theme = createTheme({
+  palette: {
+    mode: 'dark', // Dark mode theme
+    primary: {
+      main: '#ffffff',
+    },
+    secondary: {
+      main: '#ffffff',
+    },
+  },
+  typography: {
+    fontFamily: [
+      'Merriweather', 
+      'serif',
+    ].join(','),
+  },
+});
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -32,7 +49,6 @@ const Login = () => {
     };
 
     window.addEventListener('beforeunload', handleBeforeUnload);
-
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
@@ -52,31 +68,17 @@ const Login = () => {
     user.authenticateUser(authDetails, {
       onSuccess: (data) => {
         console.log('Login success', data);
-        navigate('/dashboard'); // Redirect to dashboard after successful login
+        navigate('/dashboard');
       },
       onFailure: (err) => {
         console.error('Login error', err);
-        if (err.code === 'UserNotConfirmedException') {
-          console.log('User is not confirmed');
-          // Handle unconfirmed user
-          navigate('/confirm');
-        } else if (err.code === 'UserNotFoundException') {
-          setError('User not found. Please sign up.');
-        } else if (err.code === 'NotAuthorizedException') {
-          setError('Incorrect username or password.');
-        } else if (err.code === 'UserNotConfirmedException') {
-          setError('User is not confirmed. Please confirm your email.');
-        } else if (err.code === 'PasswordResetRequiredException') {
-          setError('Password reset is required.');
-        } else {
-          setError(err.message || 'An error occurred while logging in');
-        }
+        setError(err.message || 'An error occurred while logging in');
       },
     });
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -85,6 +87,7 @@ const Login = () => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            color: 'white',
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -105,6 +108,15 @@ const Login = () => {
               autoFocus
               value={email}
               onChange={(event) => setEmail(event.target.value)}
+              sx={{
+                '& label.Mui-focused': { color: 'white' },
+                '& .MuiInput-underline:after': { borderBottomColor: 'white' },
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': { borderColor: 'white' },
+                  '&:hover fieldset': { borderColor: 'white' },
+                  '&.Mui-focused fieldset': { borderColor: 'white' },
+                }
+              }}
             />
             <TextField
               margin="normal"
@@ -117,17 +129,26 @@ const Login = () => {
               autoComplete="current-password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
+              sx={{
+                '& label.Mui-focused': { color: 'white' },
+                '& .MuiInput-underline:after': { borderBottomColor: 'white' },
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': { borderColor: 'white' },
+                  '&:hover fieldset': { borderColor: 'white' },
+                  '&.Mui-focused fieldset': { borderColor: 'white' },
+                }
+              }}
             />
             {error && (
               <Typography variant="body2" color="error" align="center" sx={{ mt: 3 }}>
                 {error}
               </Typography>
             )}
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2, bgcolor: 'secondary.main' }}>
               Sign In
             </Button>
             <Grid container>
-              {/* Grid items */}
+              {/* Additional Grid items if needed */}
             </Grid>
           </Box>
         </Box>
