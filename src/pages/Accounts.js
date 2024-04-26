@@ -7,7 +7,6 @@ const userPool = new CognitoUserPool({
 });
 
 const AccountContext = createContext();
-
 const Account = (props) => {
   const getSession = async () => {
     await new Promise((resolve, reject) => {
@@ -121,4 +120,4 @@ const Account = (props) => {
   );
 };
 
-export { Account, AccountContext };
+export { Account };

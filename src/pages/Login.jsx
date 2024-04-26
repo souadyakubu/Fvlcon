@@ -68,40 +68,6 @@ const Login = () => {
           setError('User is not confirmed. Please confirm your email.');
         } else if (err.code === 'PasswordResetRequiredException') {
           setError('Password reset is required.');
-        } else if (err.code === 'MFAMethodNotFoundException') {
-          // Handle MFA setup
-          console.log('MFA setup required');
-          const mfaData = {
-            Username: email.toLowerCase(),
-            UserPoolId: userPool.getUserPoolId().split('/')[1],
-            Session: err.session,
-          };
-          user.associateSoftwareToken(mfaData, {
-            associateSecretCode: function (secretCode) {
-              console.log('Associate secret code: ', secretCode);
-              // Prompt user to enter TOTP code generated from the authenticator app
-              var totpCode = prompt('Enter the TOTP code');
-              user.verifySoftwareToken(totpCode, 'MyDevice', {
-                onSuccess: function (session) {
-                  console.log('Verification success');
-                  // After successful verification, continue with authentication
-                  user.getSession((err, session) => {
-                    if (err) {
-                      console.error('Error getting user session:', err);
-                      setError('An error occurred while logging in');
-                    } else {
-                      console.log('Login success', session);
-                      navigate('/dashboard'); // Redirect to dashboard after successful login
-                    }
-                  });
-                },
-                onFailure: function (err) {
-                  console.error('Verification error', err);
-                  setError('Verification failed');
-                },
-              });
-            },
-          });
         } else {
           setError(err.message || 'An error occurred while logging in');
         }
